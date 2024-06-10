@@ -114,7 +114,7 @@ export const columns: ColumnDef<Ticket>[] = [
             }
 
             return (
-                <div className='flex  items-center'>
+                <div className='flex items-center'>
                     {status.icon && (
                         <status.icon className='mr-2 h-4 w-4 text-muted-foreground' />
                     )}

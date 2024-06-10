@@ -82,7 +82,7 @@ export function DataTable<TData, TValue>({
     return (
         <div className='flex w-full flex-col space-y-4 p-4'>
             <DataTableToolbar table={table} />
-            <div className='w-full rounded-md  border'>
+            <div className='w-full rounded-md border'>
                 <div className='h-[500px] overflow-auto'>
                     <Table>
                         <TableHeader className='sticky top-0 z-20 bg-background'>
