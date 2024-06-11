@@ -3,10 +3,10 @@
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { useFormState } from 'react-dom';
-import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { createTicket } from '@/lib/actions';
 import { Link as LinkIcon } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import { priorities, statuses, types } from '@/content/constants';
 
 import {
@@ -23,8 +23,8 @@ import { Button } from '@/components/ui/button';
 import { Combobox } from '@/components/ui/combobox';
 import { Textarea } from '@/components/ui/textarea';
 import { CardContent, CardFooter } from '@/components/ui/card';
+import { DialogUploadFile } from '@/components/drawer/drawer-upload-file';
 
-import { InputFile } from '@/components/input-file';
 import { ticketIS } from '@/content/initial-states';
 import { SubmitButton } from '@/components/form/submit-button';
 
@@ -38,7 +38,10 @@ interface NewTicketFormProps {
 export const NewTicketForm = ({ projects }: NewTicketFormProps) => {
     const router = useRouter();
     const ref = useRef<HTMLFormElement>(null);
-    const [formState, formAction] = useFormState(createTicket, ticketIS);
+    const [files, setFiles] = useState<File[]>([]);
+
+    const action = createTicket.bind(null, files);
+    const [formState, formAction] = useFormState(action, ticketIS);
 
     const { errors, message } = formState;
 
@@ -185,7 +188,12 @@ export const NewTicketForm = ({ projects }: NewTicketFormProps) => {
                             </Select>
                         </div>
                     </div>
-                    <InputFile name='file' label='Screenshot' />
+
+                    <div className='grid gap-2'>
+                        <Label htmlFor='Screenshot'>Screenshot</Label>
+                        <DialogUploadFile files={files} setFiles={setFiles} />
+                    </div>
+
                     <div className='grid gap-2'>
                         <div className='flex items-center gap-2'>
                             <Label htmlFor='link'>Link</Label>

@@ -348,13 +348,14 @@ export async function getTicketByID(id: string): Promise<Ticket> {
     }
 }
 
-export async function createTicket(_: any, formData: FormData) {
+export async function createTicket(files: File[], _: any, formData: FormData) {
     await verifyAuth();
 
     try {
         const form = Object.fromEntries(formData.entries());
         const validatedFields = ticketSchema.safeParse({
             ...form,
+            files: files,
             status: 'na fila',
         });
 
@@ -398,13 +399,25 @@ export async function createTicket(_: any, formData: FormData) {
     }
 }
 
-export async function editTicket(id: string, _: any, formData: FormData) {
+export async function editTicket(
+    params: {
+        id: string;
+        files: File[];
+    },
+    _: any,
+    formData: FormData
+) {
     await verifyAuth();
 
     try {
         const form = Object.fromEntries(formData.entries());
 
-        const validatedFields = ticketSchema.safeParse(form);
+        const { id, files } = params;
+
+        const validatedFields = ticketSchema.safeParse({
+            ...form,
+            files,
+        });
 
         if (!validatedFields.success) {
             return {

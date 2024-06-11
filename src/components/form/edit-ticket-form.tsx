@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { Ticket } from '@/types';
 import { cn } from '@/lib/utils';
 import { useFormState } from 'react-dom';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { editTicket } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
 import { Link as LinkIcon } from 'lucide-react';
@@ -16,7 +16,6 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Combobox } from '@/components/ui/combobox';
 import { SuperLink } from '@/components/super-link';
-import { InputFile } from '@/components/input-file';
 import { Textarea } from '@/components/ui/textarea';
 import { CardContent, CardFooter } from '@/components/ui/card';
 
@@ -29,6 +28,7 @@ import {
 } from '@/components/ui/select';
 
 import { SubmitButton } from '@/components/form/submit-button';
+import { DialogUploadFile } from '@/components/drawer/drawer-upload-file';
 
 interface EditFormProps {
     ticket: Ticket;
@@ -42,7 +42,12 @@ export const EditTicketForm = ({ ticket, projects }: EditFormProps) => {
     const router = useRouter();
     const ref = useRef<HTMLFormElement>(null);
 
-    const action = editTicket.bind(null, ticket.id as string);
+    const [files, setFiles] = useState<File[]>([]);
+
+    const action = editTicket.bind(null, {
+        id: ticket.id as string,
+        files,
+    });
     const [formState, formAction] = useFormState(action, ticketIS);
 
     const { errors, message } = formState;
@@ -197,7 +202,12 @@ export const EditTicketForm = ({ ticket, projects }: EditFormProps) => {
                             </Select>
                         </div>
                     </div>
-                    <InputFile name='file' label='Screenshot' />
+
+                    <div className='grid gap-2'>
+                        <Label htmlFor='Screenshot'>Screenshot</Label>
+                        <DialogUploadFile files={files} setFiles={setFiles} />
+                    </div>
+
                     <div className='grid gap-2'>
                         <div className='flex items-center gap-2'>
                             <Label htmlFor='link'>Link</Label>
@@ -209,11 +219,11 @@ export const EditTicketForm = ({ ticket, projects }: EditFormProps) => {
                             placeholder='Link'
                             defaultValue={ticket.link}
                         />
-                        {errors.file && (
+                        {/* {errors.files && (
                             <span className='text-xs text-red-400'>
-                                {errors.file}
+                                {errors.files}
                             </span>
-                        )}
+                        )} */}
                     </div>
                 </section>
             </CardContent>

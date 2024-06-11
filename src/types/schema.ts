@@ -46,13 +46,15 @@ export const ticketSchema = z.object({
     type: z.string().min(1, { message: 'Insira o tipo!' }),
     priority: z.string().min(1, { message: 'Insira a prioridade!' }),
     status: z.string().min(1, { message: 'Insira o status!' }),
-    file: z
-        .object({
-            size: z.number(),
-            type: z.string(),
-            name: z.string(),
-            lastModified: z.number(),
-        })
+    files: z
+        .array(
+            z.object({
+                size: z.number(),
+                type: z.string(),
+                name: z.string(),
+                lastModified: z.number(),
+            })
+        )
         .optional(),
     link: z.string().trim().optional(),
 });
