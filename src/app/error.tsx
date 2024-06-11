@@ -7,10 +7,10 @@ import { SuperLink } from '@/components/super-link';
 export default function Error() {
     return (
         <main className='flex min-h-screen flex-col items-center justify-center gap-10'>
-            <Label>erro.</Label>
-            <SuperLink href='/'>
+            <Label>error!</Label>
+            <SuperLink href='/tickets'>
                 <Button variant='outline' type='button'>
-                    voltar para home
+                    go back
                 </Button>
             </SuperLink>
         </main>
