@@ -26,6 +26,7 @@ interface ComboboxProps {
     className?: string;
     name?: string;
     defaultValue?: string;
+    onValueChange?: (value: string) => void;
 }
 
 export const Combobox = ({
@@ -35,6 +36,7 @@ export const Combobox = ({
     className,
     name,
     defaultValue = '',
+    onValueChange,
 }: ComboboxProps) => {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState(defaultValue);
@@ -76,6 +78,7 @@ export const Combobox = ({
                                             ? ''
                                             : currentValue
                                     );
+                                    onValueChange?.(currentValue);
                                     setOpen(false);
                                 }}
                             >

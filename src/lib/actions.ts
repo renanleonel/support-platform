@@ -53,6 +53,7 @@ import {
 } from '@/lib/api';
 import { Member, Ticket } from '@/types';
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 
 export async function signin(_: any, formData: FormData) {
     try {
@@ -1039,4 +1040,10 @@ export async function help(_: any, formData: FormData) {
             },
         };
     }
+}
+
+export async function changeLanguage(language: string) {
+    await verifyAuth();
+
+    cookies().set('language', language);
 }

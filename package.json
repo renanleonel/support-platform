@@ -15,6 +15,7 @@
         "prepare": "husky"
     },
     "dependencies": {
+        "@formatjs/intl-localematcher": "^0.5.4",
         "@hookform/resolvers": "^3.4.2",
         "@radix-ui/react-alert-dialog": "^1.0.5",
         "@radix-ui/react-avatar": "^1.0.4",
@@ -33,6 +34,7 @@
         "@radix-ui/react-tooltip": "^1.0.7",
         "@svgr/webpack": "^8.1.0",
         "@tanstack/react-table": "^8.17.3",
+        "@types/negotiator": "^0.6.3",
         "@types/node": "20.12.12",
         "@types/react": "18.3.3",
         "@types/react-dom": "18.3.0",
@@ -42,6 +44,7 @@
         "cmdk": "^0.2.1",
         "geist": "^1.3.0",
         "lucide-react": "^0.379.0",
+        "negotiator": "^0.6.3",
         "next": "^14.2.3",
         "next-pwa": "^5.6.0",
         "next-themes": "^0.3.0",

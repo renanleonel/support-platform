@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { useFormState } from 'react-dom';
-import { changeProfile } from '@/lib/actions';
+import { changeLanguage, changeProfile } from '@/lib/actions';
 import { changeProfileIS } from '@/content/initial-states';
 
 import { Theme } from '@/components/ui/theme';
@@ -53,6 +53,7 @@ export function ProfileForm({ name }: ProfileFormProps) {
                     options={languages}
                     placeholderText='Language'
                     searchText='Select a language'
+                    onValueChange={async (value) => await changeLanguage(value)}
                     className={cn(
                         'lg:max-w-xs',
                         errors.language && 'border-red-400'
@@ -63,14 +64,6 @@ export function ProfileForm({ name }: ProfileFormProps) {
                     in emails.
                 </p>
             </div>
-
-            {/* <InputFile
-                name='file'
-                label='Profile Pic'
-                className={cn(errors.profilePic && 'border-red-400')}
-            /> */}
-
-            <p className='text-xs text-red-400'>{errors.profilePic}</p>
 
             <div className='flex justify-between'>
                 <Button type='submit'>Update</Button>
